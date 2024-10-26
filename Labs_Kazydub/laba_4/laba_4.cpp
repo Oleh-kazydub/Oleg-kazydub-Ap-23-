@@ -3,9 +3,7 @@
 
 class Product {
 public:
-
     Product() : name(""), price(0.0), quantity(0) {}
-
 
     Product(const std::string& name, double price, int quantity) {
         setName(name);
@@ -13,13 +11,11 @@ public:
         setQuantity(quantity);
     }
 
-
     ~Product() {}
-
 
     void input() {
         std::cout << "Enter product name: ";
-        std::cin >> name;
+        std::getline(std::cin >> std::ws, name); // Використовуємо std::getline для введення назви
         std::cout << "Enter price: ";
         double p;
         std::cin >> p;
@@ -35,7 +31,6 @@ public:
                   << ", Price: " << price
                   << ", Quantity: " << quantity << std::endl;
     }
-
 
     void setName(const std::string& name) { this->name = name; }
 
@@ -62,12 +57,9 @@ private:
 };
 
 int main() {
-
     Product product;
 
-
     product.input();
-
 
     std::cout << "Product details:" << std::endl;
     product.output();
