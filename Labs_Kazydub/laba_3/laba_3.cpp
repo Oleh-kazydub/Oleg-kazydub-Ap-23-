@@ -3,23 +3,42 @@
 
 using namespace std;
 
-// Головна програма
-int main() {
+// Функція для обчислення y для заданого x
+double обчислити_y(double x, double a, double b) {
+    return cbrt(pow(a, 3) + pow(x, 3)) / (pow(tan(b * x), 3) + 1.6);
+}
 
-    // Обчислення значень y та їх суми
-    cout << "Значення y для x від " << x1 << " до " << x2 << ":" << endl;
+// Функція для обчислення суми значень y, де 0 < y < 1
+double обчислити_суму(double x1, double x2, double h, double a, double b) {
+    double сума = 0.0;
     for (double x = x1; x <= x2; x += h) {
-        double y = cbrt(a * a * a + (pow(x, 3) / (pow(tan(b * x), 3) + 1.6)));
-        cout << y << " "; // Виведення значення y
-
-        // Обчислення суми y, де 0 < y < 1
+        double y = обчислити_y(x, a, b);
+        cout << "y(" << x << ") = " << y << endl; // Виведення значення y для кожного x
         if (y > 0 && y < 1) {
-            sum += y;
+            сума += y;
         }
     }
-    cout << endl;
+    return сума;
+}
 
-    cout << "Сума значень y, де 0 < y < 1: " << sum << endl;
+// Функція для перевірки коректності вхідних значень
+bool перевірити_вхідні_дані(double x1, double x2, double h) {
+    return (x1 < x2) && (h > 0);
+}
+
+// Головна програма
+int main() {
+    double x1 = 0.2, x2 = 1.6, h = 0.2, a = 1.25, b = 0.86;
+
+    if (!перевірити_вхідні_дані(x1, x2, h)) {
+        cout << "Некоректні вхідні значення. Переконайтесь, що x1 < x2 і h > 0." << endl;
+        return 1;
+    }
+
+    cout << "Обчислення значень y для x від " << x1 << " до " << x2 << " з кроком " << h << ":" << endl;
+    double сума = обчислити_суму(x1, x2, h, a, b);
+
+    cout << "Сума значень y, де 0 < y < 1: " << сума << endl;
 
     return 0;
 }
