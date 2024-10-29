@@ -1,26 +1,26 @@
 #include <iostream>
-#include <cmath>  // Для математичних функцій
+#include <cmath> // Для математичних функцій
 #include <limits> // Для std::numeric_limits
 
 // Функції для розрахунку y за різними умовами
 double calculateForXLessThanOne(double a, double x) {
     if (a < 0) {
-        throw std::invalid_argument("Параметр a не може бути від'ємним."); // Перевірка на від'ємне a
+        throw std::invalid_argument("Parameter a cannot be negative."); // Перевірка на від'ємне a
     }
-    return sin(x) + 4 * sqrt(fabs(a));  // Нова формула: y = sin(x) + 4√|a|
+    return sin(x) + pow(abs(a),1/4); // Нова формула: y = sin(x) + 4√|a|
 }
 
 double calculateForTwoLessThanXLessThanFour(double b, double x) {
-    return log(fabs(pow(b, 2) + x));  // y = log|b² + x| при 2 ≤ x < 4
+    return log(fabs(pow(b, 2) + x)); // y = log|b² + x| при 2 ≤ x < 4
 }
 
 double calculateForXGreaterOrEqualToFour(double a, double x) {
-    return pow(cos(a * x), 3);  // y = cos³(ax) при x більше або рівне 4
+    return pow(cos(a * x), 3); // y = cos³(ax) при x більше або рівне 4
 }
 
 int main() {
-    double a = 3;  // Параметр a
-    double b = 5;  // Параметр b
+    double a = 3; // Параметр a
+    double b = 5; // Параметр b
     double x;
 
     // Введення числа x з перевіркою
