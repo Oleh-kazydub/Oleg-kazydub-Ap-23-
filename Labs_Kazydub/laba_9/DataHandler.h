@@ -1,16 +1,13 @@
-#include "Carrier.h"
-#include <iostream>
+#ifndef DATAHANDLER_H
+#define DATAHANDLER_H
 
-Carrier::Carrier(const std::string& name, int crewSize, double displacement, int aircraftCapacity)
-    : Ship(name, crewSize, displacement), aircraftCapacity(aircraftCapacity) {}
+#include <vector>
+#include "Ship.h"
 
-Carrier::~Carrier() {}
+class DataHandler {
+public:
+    static void display(const Ship& ship);
+    static void calculateTotalDisplacement(const std::vector<Ship*>& ships);
+};
 
-void Carrier::display() const {
-    Ship::display();
-    std::cout << "Aircraft Capacity: " << aircraftCapacity << std::endl;
-}
-
-int Carrier::getAircraftCapacity() const {
-    return aircraftCapacity;
-}
+#endif // DATAHANDLER_H
