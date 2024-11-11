@@ -1,18 +1,15 @@
-#ifndef CARRIER_H
-#define CARRIER_H
+#include "DataHandler.h"
+#include <iostream>
 
-#include "Ship.h"
+void DataHandler::display(const Ship& ship) {
+    ship.display();  // Викликається метод display() для кожного корабля
+}
 
-class Carrier : public Ship {
-private:
-    int aircraftCapacity; // кількість літаків на борту
+void DataHandler::calculateTotalDisplacement(const std::vector<Ship*>& ships) {
+    double totalDisplacement = 0;
+    for (const auto& ship : ships) {
+        totalDisplacement += ship->getDisplacement();
+    }
+    std::cout << "\nЗагальна водотоннажність всіх кораблів: " << totalDisplacement << " тон" << std::endl;
+}
 
-public:
-    Carrier(const std::string& name, int crewSize, double displacement, int aircraftCapacity);
-    ~Carrier();
-
-    void display() const override;
-    int getAircraftCapacity() const;
-};
-
-#endif // CARRIER_H
