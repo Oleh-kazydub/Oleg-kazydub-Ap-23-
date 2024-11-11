@@ -24,10 +24,12 @@ public:
     ~Product();
     
     void addProduct(const std::string& name, double price, int quantity);
+    void insertProduct(int position, const std::string& name, double price, int quantity);  // Вставка товару
     void displayProducts() const;
     void updateProduct(int id, const std::string& name, double price, int quantity);
     void deleteProduct(int id);
     void clearProducts();
+    void swapProducts(int id1, int id2);  // Обмін товарами
 };
 
 #endif
