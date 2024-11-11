@@ -17,6 +17,18 @@ void Product::addProduct(const std::string& name, double price, int quantity) {
     products.push_back({ getNextId(), name, price, quantity });
 }
 
+void Product::insertProduct(int position, const std::string& name, double price, int quantity) {
+    if (position < 0 || position > products.size()) {
+        std::cout << "Некоректна позиція для вставки.\n";
+        return;
+    }
+    if (price < 0 || quantity < 0) {
+        std::cout << "Ціна та кількість мають бути додатніми.\n";
+        return;
+    }
+    products.insert(products.begin() + position, { getNextId(), name, price, quantity });
+}
+
 void Product::displayProducts() const {
     for (const auto& product : products) {
         std::cout << "ID: " << product.id 
@@ -49,3 +61,15 @@ void Product::deleteProduct(int id) {
 void Product::clearProducts() {
     products.clear();
 }
+
+void Product::swapProducts(int id1, int id2) {
+    auto it1 = std::find_if(products.begin(), products.end(), [id1](const product_s_t& p) { return p.id == id1; });
+    auto it2 = std::find_if(products.begin(), products.end(), [id2](const product_s_t& p) { return p.id == id2; });
+
+    if (it1 != products.end() && it2 != products.end()) {
+        std::swap(*it1, *it2);
+    } else {
+        std::cout << "Товар з одним із вказаних ID не знайдено.\n";
+    }
+}
+
