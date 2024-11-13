@@ -1,39 +1,7 @@
 #include <iostream>
 #include <string>
-
-// Базовий клас Ship
-class Ship {
-protected:
-    std::string name;
-    int length;  // Довжина корабля
-
-public:
-    Ship(const std::string& n, int l) : name(n), length(l) {}
-
-    virtual void info() const {
-        std::cout << "Ship: " << name << ", Length: " << length << " meters\n";
-    }
-};
-
-// Клас AircraftCarrier (Авіаносець)
-class AircraftCarrier : public Ship {
-public:
-    AircraftCarrier(const std::string& n, int l) : Ship(n, l) {}
-
-    void info() const override {
-        std::cout << "Aircraft Carrier: " << name << ", Length: " << length << " meters\n";
-    }
-};
-
-// Клас Cruiser (Крейсер)
-class Cruiser : public Ship {
-public:
-    Cruiser(const std::string& n, int l) : Ship(n, l) {}
-
-    void info() const override {
-        std::cout << "Cruiser: " << name << ", Length: " << length << " meters\n";
-    }
-};
+#include "AircraftCarrier.h"
+#include "Cruiser.h"
 
 // Функція для перевірки правильності введення числа
 int getValidInt(const std::string& prompt) {
