@@ -55,10 +55,10 @@ int main() {
     getInput(name, displacement, numAircraftOrGuns);
     ships.push_back(new Cruiser(name, displacement, numAircraftOrGuns));
 
-    // Виведення даних про кожен корабель
+    // Виведення даних про кожен корабель (поліморфне викликання)
     std::cout << "\nДані про кораблі:\n";
     for (const auto& ship : ships) {
-        DataHandler::display(*ship);
+        ship->display();  // Викликається віртуальна функція display
     }
 
     // Обчислення та виведення загальної водотоннажності
@@ -71,3 +71,4 @@ int main() {
 
     return 0;
 }
+
