@@ -2,19 +2,28 @@
 #define CRUISER_H
 
 #include "Ship.h"
+#include <iostream>
 
 class Cruiser : public Ship {
-    int weaponCount;  // кількість озброєння
+private:
+    int weaponCount; // Кількість видів зброї
 
 public:
-    Cruiser(const std::string& name = "", int crew = 0, int weaponCount = 0);
-    ~Cruiser();
+    Cruiser(const std::string& name = "", int capacity = 0, int weaponCount = 0)
+        : Ship(name, capacity), weaponCount(weaponCount) {}
 
-    void display() const override;
-    void saveToFile(std::ostream& os) const override;
-    void loadFromFile(std::istream& is) override;
+    void showInfo() const override {
+        std::cout << "Cruiser: " << name << "\nCapacity: " << capacity
+                  << "\nWeapon count: " << weaponCount << std::endl;
+    }
 
-    void inputData();  // метод для вводу даних через getline
+    void saveToFile(std::ofstream& ofs) const override {
+        ofs << "Cruiser " << name << " " << capacity << " " << weaponCount << std::endl;
+    }
+
+    void loadFromFile(std::ifstream& ifs) override {
+        ifs >> name >> capacity >> weaponCount;
+    }
 };
 
-#endif
+#endif // CRUISER_H
