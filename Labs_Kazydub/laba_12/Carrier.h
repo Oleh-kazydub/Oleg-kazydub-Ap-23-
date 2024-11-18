@@ -2,19 +2,28 @@
 #define CARRIER_H
 
 #include "Ship.h"
+#include <iostream>
 
 class Carrier : public Ship {
-    int aircraftCapacity;  // кількість літаків
+private:
+    int aircraftCount; // Кількість літаків
 
 public:
-    Carrier(const std::string& name = "", int crew = 0, int aircraftCapacity = 0);
-    ~Carrier();
+    Carrier(const std::string& name = "", int capacity = 0, int aircraftCount = 0)
+        : Ship(name, capacity), aircraftCount(aircraftCount) {}
 
-    void display() const override;
-    void saveToFile(std::ostream& os) const override;
-    void loadFromFile(std::istream& is) override;
+    void showInfo() const override {
+        std::cout << "Carrier Ship: " << name << "\nCapacity: " << capacity
+                  << "\nAircraft count: " << aircraftCount << std::endl;
+    }
 
-    void inputData();  // метод для вводу даних через getline
+    void saveToFile(std::ofstream& ofs) const override {
+        ofs << "Carrier " << name << " " << capacity << " " << aircraftCount << std::endl;
+    }
+
+    void loadFromFile(std::ifstream& ifs) override {
+        ifs >> name >> capacity >> aircraftCount;
+    }
 };
 
-#endif
+#endif // CARRIER_H
