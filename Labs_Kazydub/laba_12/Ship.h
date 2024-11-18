@@ -2,22 +2,20 @@
 #define SHIP_H
 
 #include <string>
-#include <iostream>
+#include <fstream>
 
 class Ship {
 protected:
     std::string name;
-    int crew;
+    int capacity;
 
 public:
-    Ship(const std::string& name = "", int crew = 0);
-    virtual ~Ship();
+    Ship(const std::string& name = "", int capacity = 0) : name(name), capacity(capacity) {}
+    virtual ~Ship() {}
 
-    virtual void display() const;
-    virtual void saveToFile(std::ostream& os) const;
-    virtual void loadFromFile(std::istream& is);
-
-    void inputData();  // метод для вводу даних через getline
+    virtual void showInfo() const = 0; // Чисто віртуальний метод для виведення інформації
+    virtual void saveToFile(std::ofstream& ofs) const = 0; // Віртуальний метод для запису у файл
+    virtual void loadFromFile(std::ifstream& ifs) = 0; // Віртуальний метод для читання з файлу
 };
 
-#endif
+#endif // SHIP_H
