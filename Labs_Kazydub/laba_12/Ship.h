@@ -5,17 +5,20 @@
 #include <fstream>
 
 class Ship {
-protected:
-    std::string name;
-    int capacity;
-
 public:
-    Ship(const std::string& name = "", int capacity = 0) : name(name), capacity(capacity) {}
+    Ship(std::string n = "", double l = 0, double t = 0, int c = 0);
     virtual ~Ship() {}
 
-    virtual void showInfo() const = 0; // Чисто віртуальний метод для виведення інформації
-    virtual void saveToFile(std::ofstream& ofs) const = 0; // Віртуальний метод для запису у файл
-    virtual void loadFromFile(std::ifstream& ifs) = 0; // Віртуальний метод для читання з файлу
+    virtual void displayInfo() const;
+    virtual void input();
+    virtual void saveToFile(std::ofstream& outFile);
+    virtual void loadFromFile(std::ifstream& inFile);
+
+protected:
+    std::string name;
+    double length;
+    double tonnage;
+    int capacity;
 };
 
 #endif // SHIP_H
