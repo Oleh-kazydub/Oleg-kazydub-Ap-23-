@@ -7,11 +7,8 @@ AircraftCarrier::AircraftCarrier(const std::string& name, double displacement, i
 AircraftCarrier::~AircraftCarrier() {}
 
 void AircraftCarrier::display() const {
-    Ship::display();
-    std::cout << "Number of Aircraft: " << numberOfAircraft << std::endl;
-}
-
-int AircraftCarrier::getNumberOfAircraft() const {
-    return numberOfAircraft;
+    std::cout << "Авіаносець: " << name << "\n"
+              << "Водотоннажність: " << displacement << " тонн\n"
+              << "Кількість літаків: " << numberOfAircraft << std::endl;
 }
 
