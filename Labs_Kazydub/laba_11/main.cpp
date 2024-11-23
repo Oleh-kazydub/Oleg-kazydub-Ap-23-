@@ -27,19 +27,31 @@ int getValidInt(const std::string& prompt) {
     return value;
 }
 
-int main() {
+// Функція для перевірки правильності введення назви корабля
+std::string getValidName(const std::string& prompt) {
     std::string name;
-    
+    while (true) {
+        std::cout << prompt;
+        std::getline(std::cin, name);  // Зчитуємо назву корабля
+
+        if (!name.empty()) {  // Перевірка, чи не порожня назва
+            break;
+        } else {
+            std::cout << "Помилка: назва не може бути порожньою.\n";
+        }
+    }
+    return name;
+}
+
+int main() {
     // Введення для авіаносця
-    std::cout << "Введіть назву авіаносця: ";
-    std::getline(std::cin, name);  // Введення назви корабля
+    std::string name = getValidName("Введіть назву авіаносця: ");  // Введення назви
     int length = getValidInt("Введіть довжину авіаносця в метрах: ");  // Введення довжини
 
     AircraftCarrier ac(name, length);  // Створення об'єкту авіаносця
 
     // Введення для крейсера
-    std::cout << "Введіть назву крейсера: ";
-    std::getline(std::cin, name);  // Введення назви корабля
+    name = getValidName("Введіть назву крейсера: ");  // Введення назви
     length = getValidInt("Введіть довжину крейсера в метрах: ");  // Введення довжини
 
     Cruiser cr(name, length);  // Створення об'єкту крейсера
