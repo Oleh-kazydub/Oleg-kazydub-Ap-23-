@@ -6,7 +6,6 @@
 
 class DataHandler {
 public:
-    static void display(const Ship& ship);
     static void calculateTotalDisplacement(const std::vector<Ship*>& ships);
 };
 
