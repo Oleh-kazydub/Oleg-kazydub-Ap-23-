@@ -7,10 +7,7 @@ Cruiser::Cruiser(const std::string& name, double displacement, int numberOfGuns)
 Cruiser::~Cruiser() {}
 
 void Cruiser::display() const {
-    Ship::display();
-    std::cout << "Number of Guns: " << numberOfGuns << std::endl;
-}
-
-int Cruiser::getNumberOfGuns() const {
-    return numberOfGuns;
+    std::cout << "Крейсер: " << name << "\n"
+              << "Водотоннажність: " << displacement << " тонн\n"
+              << "Кількість гармат: " << numberOfGuns << std::endl;
 }
