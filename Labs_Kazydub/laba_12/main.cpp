@@ -1,59 +1,74 @@
 #include <iostream>
 #include <fstream>
-#include "AircraftCarrier.h"
+#include <vector>
+#include "Ship.h"
 #include "Cruiser.h"
+#include "AircraftCarrier.h"
 
 int main() {
+    std::vector<Ship*> ships;  // Вектор для зберігання кораблів
     int choice;
-    std::cout << "Оберіть тип корабля (1 - Авіаносець, 2 - Крейсер): ";
-    std::cin >> choice;
-    std::cin.ignore(); // Очищаємо потік після вибору
-
-    Ship* ship = nullptr;
 
     try {
-        if (choice == 1) {
-            ship = new AircraftCarrier();
-        } else if (choice == 2) {
-            ship = new Cruiser();
-        } else {
-            throw std::invalid_argument("Невірний вибір типу корабля!");
+        while (true) {
+            std::cout << "Оберіть тип корабля (1 - Авіаносець, 2 - Крейсер, 3 - Завершити): ";
+            std::cin >> choice;
+            std::cin.ignore();  // Очищаємо буфер після вводу
+
+            if (choice == 1) {
+                Ship* newShip = new AircraftCarrier();
+                newShip->input();  // Вводимо дані корабля
+                ships.push_back(newShip);  // Додаємо корабель до вектору
+            } else if (choice == 2) {
+                Ship* newShip = new Cruiser();
+                newShip->input();  // Вводимо дані корабля
+                ships.push_back(newShip);  // Додаємо корабель до вектору
+            } else if (choice == 3) {
+                break;  // Виходимо з циклу
+            } else {
+                std::cout << "Невірний вибір. Спробуйте ще раз." << std::endl;
+            }
         }
 
-        ship->input();
-        ship->displayInfo();
-        
-        // Збереження даних у файл
-        std::ofstream outFile("ship_data.txt");
-        if (!outFile) {
-            throw std::ios_base::failure("Помилка при відкритті файлу для запису.");
+        // Виведення інформації про кораблі
+        for (const auto& ship : ships) {
+            ship->displayInfo();
         }
-        ship->saveToFile(outFile);
+
+        // Збереження даних у файл
+        std::ofstream outFile("ships_data.txt");
+        for (const auto& ship : ships) {
+            ship->saveToFile(outFile);
+        }
         outFile.close();
 
         // Завантаження даних з файлу
-        Ship* loadedShip = nullptr;
-        std::ifstream inFile("ship_data.txt");
-        if (!inFile) {
-            throw std::ios_base::failure("Помилка при відкритті файлу для читання.");
+        std::ifstream inFile("ships_data.txt");
+        while (!inFile.eof()) {
+            std::string shipType;
+            std::getline(inFile, shipType);
+            Ship* loadedShip = nullptr;
+
+            if (shipType == "Авіаносець") {
+                loadedShip = new AircraftCarrier();
+            } else if (shipType == "Крейсер") {
+                loadedShip = new Cruiser();
+            }
+
+            if (loadedShip) {
+                loadedShip->loadFromFile(inFile);
+                loadedShip->displayInfo();
+                ships.push_back(loadedShip);  // Додаємо завантажений корабель
+            }
         }
 
-        std::string shipType;
-        inFile >> shipType;
-        if (shipType == "Aviancosec") {
-            loadedShip = new AircraftCarrier();
-        } else if (shipType == "Cruiser") {
-            loadedShip = new Cruiser();
+        // Очищення пам'яті
+        for (auto& ship : ships) {
+            delete ship;
         }
+        ships.clear();
 
-        loadedShip->loadFromFile(inFile);
-        loadedShip->displayInfo();
-        inFile.close();
-        
-        delete ship;
-        delete loadedShip;
-    }
-    catch (const std::exception& e) {
+    } catch (const std::exception& e) {
         std::cerr << "Помилка: " << e.what() << std::endl;
     }
 
