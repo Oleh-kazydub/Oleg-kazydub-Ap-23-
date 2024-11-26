@@ -68,7 +68,7 @@ int main() {
     // Звільнення пам'яті
     for (auto& ship : ships) {
         delete ship;
-    }
+    }// я все сам зробив через гпт
 
     return 0;
 }
