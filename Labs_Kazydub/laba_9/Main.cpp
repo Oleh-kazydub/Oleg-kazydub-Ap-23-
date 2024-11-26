@@ -1,9 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <limits>
-#include "AircraftCarrier.h"
-#include "Cruiser.h"
-#include "DataHandler.h"
+#include "Ship.h"
 
 void getInput(std::string& name, double& displacement, int& numAircraftOrGuns, const std::string& type) {
     // Введення назви
@@ -24,7 +22,7 @@ void getInput(std::string& name, double& displacement, int& numAircraftOrGuns, c
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Очищення залишків
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Очищення залишків
 
     // Введення кількості літаків/гармат
     std::cout << "Введіть кількість літаків/гармат для " << type << ": ";
@@ -55,10 +53,13 @@ int main() {
         ships.push_back(new Cruiser(name, displacement, numAircraftOrGuns));
     }
 
-    // Виведення інформації про кораблі
+    // Використання дружньої функції для зміни водотоннажності
+    changeDisplacement(*ships[0], 30000);  // зміна водотоннажності для авіаносця
+
+    // Використання дружніх класів для виведення деталей
     std::cout << "\nДані про кораблі:\n";
     for (const auto& ship : ships) {
-        ship->display();
+        ShipDisplay::displayDetails(*ship);
         std::cout << "---------------------\n";
     }
 
@@ -68,8 +69,9 @@ int main() {
     // Звільнення пам'яті
     for (auto& ship : ships) {
         delete ship;
-    }// я все сам зробив через гпт
+    }
 
     return 0;
 }
+
 
